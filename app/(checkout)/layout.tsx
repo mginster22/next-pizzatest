@@ -10,7 +10,6 @@ export default function CheckoutLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
-  modal: React.ReactNode;
 }>) {
   return (
     <main className="min-h-screen ">

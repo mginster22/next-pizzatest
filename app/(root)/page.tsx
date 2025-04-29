@@ -1,3 +1,4 @@
+"use server";
 
 import { Container } from "@/shared/components/shared/container";
 import Filters from "@/shared/components/shared/Filters";
@@ -10,11 +11,11 @@ import { findPizzas, GetSearchParams } from "@/shared/lib/find-pizzas";
 export default async function Home({
   searchParams,
 }: {
-  searchParams: GetSearchParams;
+  searchParams: Promise<GetSearchParams>;
 }) {
-  const categories = await findPizzas(searchParams);
+  const resolvedSearchParams = await searchParams;
+  const categories = await findPizzas(resolvedSearchParams);
 
-  console.log(categories);
   return (
     <>
       <Container className="mt-10">

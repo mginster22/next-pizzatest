@@ -16,8 +16,7 @@ import {
 import { createOrder } from "@/app/actions";
 import toast from "react-hot-toast";
 
-interface CheckoutPage {}
-const CheckoutPage: React.FC<CheckoutPage> = () => {
+const CheckoutPage = () => {
   const [submitting, setSubmitting] = React.useState(false);
 
   const form = useForm<CheckoutFormValues>({

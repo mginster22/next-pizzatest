@@ -4,10 +4,12 @@ import { notFound } from "next/navigation";
 import { ProductForm } from "@/shared/components/shared/product-form";
 
 export default async function ProductPage({
-  params: { id },
+  params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
+  const { id } = await params;
+
   const product = await prisma.product.findFirst({
     where: { id: Number(id) },
     include: {
@@ -29,11 +31,9 @@ export default async function ProductPage({
     return notFound();
   }
 
- 
-  
   return (
     <Container className="flex flex-col my-10">
-     <ProductForm product={product}/>
+      <ProductForm product={product} />
     </Container>
   );
 }
