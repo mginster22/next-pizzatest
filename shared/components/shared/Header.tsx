@@ -24,6 +24,7 @@ const Header: React.FunctionComponent<Props> = ({
 }) => {
 
   const [openAuthModal, setOpenAuthModal] = React.useState(false);
+  
   return (
     <header className={cn(" border-b", className)}>
       <Container className="flex items-center justify-between py-8">
