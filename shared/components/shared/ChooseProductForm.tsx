@@ -1,6 +1,5 @@
 "use client";
 import React from "react";
-import ProductImage from "./PizzaImage";
 import { cn } from "@/shared/lib/utils";
 import { Title } from "./Title";
 import { Button } from "../ui/button";

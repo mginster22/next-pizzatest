@@ -1,12 +1,12 @@
 "use server";
 
 import { prisma } from "@/prisma/prisma-client";
+import { OrderStatus, Prisma } from "@/prisma/prisma/client";
 import { PayOrderTemplate } from "@/shared/components/shared/email-temapltes";
 import { VerificationUserTemplate } from "@/shared/components/shared/email-temapltes/verification-user";
 import { CheckoutFormValues } from "@/shared/constants/checkout-form-schema";
 import { getUserSession } from "@/shared/lib/get-user-session";
 import { sendEmail } from "@/shared/lib/send-email";
-import { OrderStatus } from "@prisma/client";
 import { hashSync } from "bcrypt";
 import { cookies } from "next/headers";
 
@@ -114,12 +114,13 @@ export async function createOrder(data: CheckoutFormValues) {
     await sendEmail(
       data.email,
       "Next Pizza / Оплатите заказ #" + order.id,
-      PayOrderTemplate({
+     await PayOrderTemplate({
         orderId: order.id,
         totalAmount: order.totalAmount,
         paymentUrl: "https://nextjs.org/docs/messages/sync-dynamic-apis",
       })
     );
+    return "https://nextjs.org/docs/messages/sync-dynamic-apis";
   } catch (err) {
     console.log("[CreateOrder] Server error", err);
   }
@@ -192,10 +193,11 @@ export async function registerUser(body: Prisma.UserCreateInput) {
     await sendEmail(
       createdUser.email,
       "Next Pizza / 📝 Подтверждение регистрации",
-      VerificationUserTemplate({
+     await VerificationUserTemplate({
         code,
       })
     );
+    return "https://nextjs.org/docs/messages/sync-dynamic-apis";
   } catch (err) {
     console.log("Error [CREATE_USER]", err);
     throw err;
